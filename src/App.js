@@ -7,6 +7,8 @@ import ProductList from "./Components/User/ProductList";
 import VehicleCard from "./Components/User/VehicleCard";
 import Home from "./Components/User/Home";
 import ImportData from "./Components/User/ImportData";
+import ProductFeatures from "./Components/User/ProductFeatures";
+import Contact from "./Components/User/Contact";
 
 // Admin Components
 import Excel from "./Components/Admin/ImportExcel";
@@ -27,6 +29,9 @@ function App() {
         <Route path="/products" element={<ProductList />} />
         <Route path="/vehicles" element={<VehicleCard />} />
         <Route path="/importdata" element={<ImportData />} />
+           <Route path="/productfeatures" element={<ProductFeatures />} />
+            <Route path="/contact" element={<Contact />} />
+
 
         {/* Admin Routes wrapped with AdminLayout */}
         <Route path="/admin/*" element={<AdminLayout />}>
