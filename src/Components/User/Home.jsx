@@ -46,12 +46,12 @@ export default function Home() {
                   Shop Now
                   <ChevronRight className="group-hover:translate-x-1 transition-transform" size={20} />
                 </a>
-                <a
+                {/* <a
                   href="/productlist"
                   className="bg-transparent border-2 border-white text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold hover:bg-white hover:text-blue-700 transition-all duration-300 text-center"
                 >
                   Our Products
-                </a>
+                </a> */}
               </div>
             </div>
 
@@ -179,7 +179,7 @@ export default function Home() {
         <ProductFeatures/>
           <div className="text-center mt-8 md:mt-12">
             <a
-              href="/products"
+              href="/productlist"
               className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold hover:bg-gray-800 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 text-sm md:text-base"
             >
               View All Products
