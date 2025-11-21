@@ -179,7 +179,7 @@ export default function Home() {
         <ProductFeatures/>
           <div className="text-center mt-8 md:mt-12">
             <a
-              href="/productlist"
+              href="/products"
               className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold hover:bg-gray-800 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 text-sm md:text-base"
             >
               View All Products

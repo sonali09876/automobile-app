@@ -15,33 +15,42 @@ import Excel from "./Components/Admin/ImportExcel";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
 import AdminLayout from "./Components/Admin/AdminLayout";
 import ProductMaster from "./Components/Admin/ProductMaster";
-
+import LoginPage from "./Components/Admin/Login";
 
 function App() {
   return (
     <Router>
-      {/* User Navbar always visible */}
-      <Navbar />
-
       <Routes>
-        {/* User Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<ProductList />} />
-        <Route path="/vehicles" element={<VehicleCard />} />
-        <Route path="/importdata" element={<ImportData />} />
-           <Route path="/productfeatures" element={<ProductFeatures />} />
-            <Route path="/contact" element={<Contact />} />
 
+        {/* ---------------- USER ROUTES WITH NAVBAR ---------------- */}
+        <Route
+          path="/*"
+          element={
+            <>
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/products" element={<ProductList />} />
+                <Route path="/vehicles" element={<VehicleCard />} />
+                <Route path="/importdata" element={<ImportData />} />
+                <Route path="/productfeatures" element={<ProductFeatures />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </>
+          }
+        />
 
-        {/* Admin Routes wrapped with AdminLayout */}
+        {/* ---------------- ADMIN LOGIN ONLY ---------------- */}
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* ---------------- ADMIN SECTION WITH SIDEBAR + NAVBAR ---------------- */}
         <Route path="/admin/*" element={<AdminLayout />}>
-          <Route index element={<Excel />} /> {/* default admin route /admin */}
+          <Route index element={<AdminDashboard />} />
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="importexcel" element={<Excel />} />
-           <Route path="productmaster" element={<ProductMaster />} />
-
-          {/* add other admin nested routes here */}
+          <Route path="productmaster" element={<ProductMaster />} />
         </Route>
+
       </Routes>
     </Router>
   );

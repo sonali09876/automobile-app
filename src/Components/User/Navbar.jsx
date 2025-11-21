@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
-  const handleClick = () => setOpen(false); // close mobile menu
+  const handleClick = () => setOpen(false);
 
   return (
     <nav className="w-full bg-blue-700 text-white shadow-md">
@@ -15,7 +15,7 @@ export default function Navbar() {
         <h1 className="text-2xl font-bold">Automobile</h1>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-8 text-lg">
+        <ul className="hidden md:flex gap-8 text-lg items-center">
           <li className="hover:text-gray-300 cursor-pointer">
             <Link to="/">Home</Link>
           </li>
@@ -31,6 +31,16 @@ export default function Navbar() {
           <li className="hover:text-gray-300 cursor-pointer">
             <Link to="/contact">Contact</Link>
           </li>
+
+          {/* Login Button */}
+          <li>
+            <Link
+              to="/login"
+              className="bg-white text-blue-700 px-4 py-1 rounded-md font-semibold hover:bg-gray-200"
+            >
+              Login
+            </Link>
+          </li>
         </ul>
 
         {/* Mobile Menu Button */}
@@ -39,9 +49,9 @@ export default function Navbar() {
           onClick={() => setOpen(!open)}
         >
           {open ? (
-            <span className="text-3xl">&#10005;</span> // X icon
+            <span className="text-3xl">&#10005;</span>
           ) : (
-            <span className="text-3xl">&#9776;</span> // menu icon
+            <span className="text-3xl">&#9776;</span>
           )}
         </button>
       </div>
@@ -63,6 +73,16 @@ export default function Navbar() {
 
           <li onClick={handleClick}>
             <Link className="hover:text-gray-300" to="/contact">Contact</Link>
+          </li>
+
+          {/* Login Button for Mobile */}
+          <li onClick={handleClick}>
+            <Link
+              className="bg-white text-blue-700 px-4 py-1 rounded-md font-semibold inline-block hover:bg-gray-200"
+              to="/login"
+            >
+              Login
+            </Link>
           </li>
         </ul>
       )}
