@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import * as XLSX from 'xlsx';
+import { useNavigate } from 'react-router-dom';
 import httpClient from '../../axios';
 import {
   Upload,
@@ -269,7 +270,7 @@ export default function ImportData() {
     transmission: '',
     mileage: '',
   });
-
+ const navigate = useNavigate();
   useEffect(() => {
     loadDataFromAPI();
   }, [pagination.page, pagination.limit]);
@@ -970,25 +971,18 @@ export default function ImportData() {
 
           {/* Action Buttons */}
           <div className='flex gap-2 pt-3 border-t border-gray-200'>
-            <button
-              disabled
-              type='button'
-              onClick={() => handleEdit(vehicle)}
-              className='flex-1 opacity-[10%] bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1 transition-all duration-200'
-            >
-              <Edit size={16} />
-              Edit
-            </button>
-            <button
-              disabled
-              onClick={() => handleDelete(vehicle._id || index)}
-              className='flex-1 opacity-[10%] bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1 transition-all duration-200'
-            >
-              <Trash2 size={16} />
-              Delete
-            </button>
-          </div>
-        </div>
+        {/* ...existing Edit and Delete buttons... */}
+
+        <button
+          type='button'
+          onClick={() => navigate(`/vehicles/${vehicle._id || index}`)}
+          className='flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1 transition-all duration-200'
+        >
+          <Eye size={16} />
+          View Details
+        </button>
+      </div>
+    </div>
       </div>
     );
   };

@@ -9,6 +9,7 @@ import Home from "./Components/User/Home";
 import ImportData from "./Components/User/ImportData";
 import ProductFeatures from "./Components/User/ProductFeatures";
 import Contact from "./Components/User/Contact";
+import VehicleDetails from "./Components/User/VehicleDetails";
 
 // Admin Components
 import Excel from "./Components/Admin/ImportExcel";
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<ProductList />} />
                 <Route path="/vehicles" element={<VehicleCard />} />
+                <Route path="/vehicles/:id" element={<VehicleDetails />} />
                 <Route path="/importdata" element={<ImportData />} />
                 <Route path="/productfeatures" element={<ProductFeatures />} />
                 <Route path="/contact" element={<Contact />} />
