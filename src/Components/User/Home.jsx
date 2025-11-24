@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Car, Wrench, ShoppingCart, Fuel, Star, ChevronRight, Zap, Shield, Clock } from "lucide-react";
+import ProductFeatures from "../User/ProductFeatures";
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -45,12 +46,12 @@ export default function Home() {
                   Shop Now
                   <ChevronRight className="group-hover:translate-x-1 transition-transform" size={20} />
                 </a>
-                <a
-                  href="/services"
+                {/* <a
+                  href="/productlist"
                   className="bg-transparent border-2 border-white text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold hover:bg-white hover:text-blue-700 transition-all duration-300 text-center"
                 >
-                  Our Services
-                </a>
+                  Our Products
+                </a> */}
               </div>
             </div>
 
@@ -175,105 +176,7 @@ export default function Home() {
             <p className="text-gray-600 text-base md:text-lg">Hand-picked deals just for you</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-            {/* CARD 1 */}
-            <div className="group bg-white rounded-2xl md:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2">
-              <div className="relative overflow-hidden h-48 md:h-56">
-                <img
-                  src="https://images.unsplash.com/photo-1601924638867-3ec2d63d8490?w=600"
-                  alt="Engine Oil"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-red-500 text-white px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold">
-                  -20%
-                </div>
-              </div>
-              <div className="p-4 md:p-6">
-                <div className="flex items-center gap-1 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
-                  ))}
-                  <span className="text-xs md:text-sm text-gray-600 ml-2">(245)</span>
-                </div>
-                <h3 className="font-bold text-lg md:text-xl text-gray-900">Premium Engine Oil</h3>
-                <p className="text-gray-600 text-xs md:text-sm mt-2">
-                  High quality synthetic oil for superior engine protection.
-                </p>
-                <div className="flex items-center justify-between mt-4">
-                  <div>
-                    <span className="text-gray-400 line-through text-xs md:text-sm">₹999</span>
-                    <p className="text-blue-600 font-bold text-xl md:text-2xl">₹799</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* CARD 2 */}
-            <div className="group bg-white rounded-2xl md:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2">
-              <div className="relative overflow-hidden h-48 md:h-56">
-                <img
-                  src="https://images.unsplash.com/photo-1620294075783-7b5a9b3a7c33?w=600"
-                  alt="Brake Pads"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-green-500 text-white px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold">
-                  Best Seller
-                </div>
-              </div>
-              <div className="p-4 md:p-6">
-                <div className="flex items-center gap-1 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
-                  ))}
-                  <span className="text-xs md:text-sm text-gray-600 ml-2">(532)</span>
-                </div>
-                <h3 className="font-bold text-lg md:text-xl text-gray-900">Ceramic Brake Pads</h3>
-                <p className="text-gray-600 text-xs md:text-sm mt-2">
-                  Durable ceramic brake pads with excellent stopping power.
-                </p>
-                <div className="flex items-center justify-between mt-4">
-                  <div>
-                    <p className="text-blue-600 font-bold text-xl md:text-2xl">₹1,299</p>
-                  </div>
-                  <button className="bg-blue-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-full text-xs md:text-sm font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl">
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* CARD 3 */}
-            <div className="group bg-white rounded-2xl md:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2">
-              <div className="relative overflow-hidden h-48 md:h-56">
-                <img
-                  src="https://images.unsplash.com/photo-1607860108855-852e30a3c811?w=600"
-                  alt="Tyre"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-blue-500 text-white px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-bold">
-                  New
-                </div>
-              </div>
-              <div className="p-4 md:p-6">
-                <div className="flex items-center gap-1 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
-                  ))}
-                  <span className="text-xs md:text-sm text-gray-600 ml-2">(189)</span>
-                </div>
-                <h3 className="font-bold text-lg md:text-xl text-gray-900">All-Season Tyre</h3>
-                <p className="text-gray-600 text-xs md:text-sm mt-2">
-                  Premium all-weather tyre with exceptional grip and durability.
-                </p>
-                <div className="flex items-center justify-between mt-4">
-                  <div>
-                    <p className="text-blue-600 font-bold text-xl md:text-2xl">₹3,200</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <ProductFeatures/>
           <div className="text-center mt-8 md:mt-12">
             <a
               href="/products"

@@ -293,35 +293,9 @@ export default function AutomobileApp() {
       console.error('Error loading data from API:', error);
       setApiMessage('Error loading data from server');
       // Fallback to local storage if API fails
-      loadDataFromLocal();
+      // loadDataFromLocal();
     } finally {
       setLoading(false);
-    }
-  };
-
-  // Fallback to local storage
-  const loadDataFromLocal = async () => {
-    try {
-      const result = await window.storage.get('automobile-data');
-      if (result && result.value) {
-        const data = JSON.parse(result.value);
-        setAutomobiles(data);
-        setFilteredData(data);
-      }
-    } catch (error) {
-      console.log('No existing data found');
-    }
-  };
-
-  // Save data to local storage (fallback)
-  const saveDataToLocal = async (data) => {
-    try {
-      await window.storage.set(
-        'automobile-data',
-        JSON.stringify(data)
-      );
-    } catch (error) {
-      console.error('Error saving data locally:', error);
     }
   };
 
@@ -421,7 +395,7 @@ export default function AutomobileApp() {
         const newData = [...automobiles, ...jsonData];
         setAutomobiles(newData);
         setFilteredData(newData);
-        saveDataToLocal(newData);
+        // saveDataToLocal(newData);
         setApiMessage(
           `✅ ${jsonData.length} records added locally (fallback mode)`
         );
@@ -516,7 +490,7 @@ export default function AutomobileApp() {
         productData
       );
 
-      if (response.data.success) {
+      if (response.data) {
         // Reload data from server and reset to first page
         setPagination((prev) => ({ ...prev, page: 1 }));
         await loadDataFromAPI();
@@ -549,7 +523,7 @@ export default function AutomobileApp() {
       const newData = [...automobiles, newProduct];
       setAutomobiles(newData);
       setFilteredData(newData);
-      saveDataToLocal(newData);
+      // saveDataToLocal(newData);
       setShowProductPopup(false);
       setApiMessage('✅ Product added locally (fallback mode)');
       resetForm();
@@ -611,7 +585,7 @@ export default function AutomobileApp() {
       );
       setAutomobiles(updatedData);
       setFilteredData(updatedData);
-      saveDataToLocal(updatedData);
+      // saveDataToLocal(updatedData);
       setApiMessage('✅ Product updated locally (fallback mode)');
       resetForm();
       setShowProductPopup(false);
@@ -639,7 +613,7 @@ export default function AutomobileApp() {
         );
         setAutomobiles(newData);
         setFilteredData(newData);
-        saveDataToLocal(newData);
+        // saveDataToLocal(newData);
         setApiMessage('✅ Record deleted locally');
       }
 
@@ -665,8 +639,8 @@ export default function AutomobileApp() {
       // For now, we'll clear locally and reload
       setAutomobiles([]);
       setFilteredData([]);
-      await window.storage.delete('automobile-data');
-      setApiMessage('✅ All local data deleted!');
+      await httpClient.delete('/vehicles');
+      setApiMessage('✅ All data deleted!');
 
       // Reload from API to see if server data is still there
       await loadDataFromAPI();
