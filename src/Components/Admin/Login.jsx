@@ -152,12 +152,8 @@ export default function LoginPage() {
               </button>
             </form>
 
-            {/* Divider */}
-            <div className='flex items-center my-6'>
-              <div className='flex-1 border-t border-white/20'></div>
-              <span className='px-4 text-gray-400 text-sm'>or</span>
-              <div className='flex-1 border-t border-white/20'></div>
-            </div>
+           
+            
           </div>
         </div>
       </div>

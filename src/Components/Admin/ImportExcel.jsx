@@ -1,6 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import * as XLSX from 'xlsx';
 import httpClient from '../../axios';
+import { useNavigate } from 'react-router-dom';
+import ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 import {
   Upload,
   Car,
@@ -15,8 +18,14 @@ import {
   Loader,
   ChevronLeft,
   ChevronRight,
-  ChevronsLeft,
   ChevronsRight,
+  ChevronsLeft,
+   Image,
+  Crop,
+  RotateCw,
+  ZoomIn,
+  ZoomOut,
+  ImageIcon,
 } from 'lucide-react';
 
 // ✅ Move ProductPopup outside the main component to prevent re-renders
@@ -30,21 +39,33 @@ const ProductPopup = ({
   uploading,
   isEditMode,
   currentEditingId,
+  onSelectFile,
+  imageSrc,
+  setImageSrc,
+  crop,
+  setCrop,
+  
+  setCompletedCrop,
+  zoom,
+  setZoom,
+  imgRef,
+  onImageLoad,
+  applyCrop,
 }) => {
   if (!showProductPopup) return null;
 
-  return (
-    <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4'>
-      <div className='bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto'>
-        <div className='bg-blue-600 text-white p-4 flex justify-between items-center sticky top-0'>
-          <h3 className='text-xl font-bold flex items-center gap-2'>
-            <Plus size={24} />
-            {isEditMode ? 'Edit Product' : 'Add New Product'}
-          </h3>
+
+   return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6 rounded-t-2xl flex justify-between items-center">
+          <h2 className="text-2xl font-bold flex items-center gap-3">
+            <Car size={28} />
+            {isEditMode ? 'Edit Vehicle' : 'Add New Vehicle'}
+          </h2>
           <button
             onClick={() => setShowProductPopup(false)}
-            className='hover:bg-blue-700 p-2 rounded-full transition'
-            disabled={uploading}
+            className="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-2 transition"
           >
             <X size={24} />
           </button>
@@ -193,11 +214,125 @@ const ProductPopup = ({
             </div>
           </div>
 
+          {/* Image upload + crop */}
+          <div className='mt-4 space-y-3'>
+            <label className='block text-sm font-semibold text-gray-700 mb-1'>
+              Vehicle Image
+            </label>
+
+            <div className='flex items-center gap-3'>
+              <label className='inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg cursor-pointer text-sm font-medium text-gray-800 border border-dashed border-gray-300'>
+                <ImageIcon size={18} />
+                <span>Select image</span>
+                <input
+                  type='file'
+                  accept='image/*'
+                  className='hidden'
+                  onChange={onSelectFile}
+                />
+              </label>
+
+              {productForm.image && (
+                <div className='flex items-center gap-2'>
+                  <img
+                    src={productForm.image}
+                    // alt='Preview'
+                    className='w-16 h-16 rounded-md object-cover border'
+                  />
+                  {/* <button
+                    type='button'
+                    onClick={() =>
+                      setProductForm((prev) => ({ ...prev, image: '' }))
+                    }
+                    className='text-xs text-red-600 hover:underline'
+                  >
+                    Remove
+                  </button> */}
+                </div>
+              )}
+            </div>
+
+            {imageSrc && (
+              <div className='mt-3 border rounded-lg p-3 bg-gray-50'>
+                <div className='flex items-center justify-between mb-2'>
+                  <div className='flex items-center gap-2 text-sm font-medium text-gray-700'>
+                    <Crop size={16} />
+                    <span>Crop Image</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <button
+                      type='button'
+                      onClick={() => setZoom((z) => Math.max(0.5, z - 0.1))}
+                      className='p-1 rounded-md border text-gray-600 hover:bg-white'
+                    >
+                      <ZoomOut size={14} />
+                    </button>
+                    <button
+                      type='button'
+                      onClick={() => setZoom((z) => Math.min(3, z + 0.1))}
+                      className='p-1 rounded-md border text-gray-600 hover:bg-white'
+                    >
+                      <ZoomIn size={14} />
+                    </button>
+                    <button
+                      type='button'
+                      onClick={() => {
+                        setCrop(undefined);
+                        setCompletedCrop(null);
+                      }}
+                      className='p-1 rounded-md border text-gray-600 hover:bg-white'
+                    >
+                      <RotateCw size={14} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className='max-h-[300px] overflow-auto bg-black/5 flex items-center justify-center'>
+                  <ReactCrop
+                    crop={crop}
+                    onChange={(c) => setCrop(c)}
+                    onComplete={(c) => setCompletedCrop(c)}
+                    aspect={4 / 3}
+                    keepSelection
+                  >
+                    <img
+                      ref={imgRef}
+                      alt='Crop source'
+                      src={imageSrc}
+                      style={{ transform: `scale(${zoom})` }}
+                      onLoad={onImageLoad}
+                    />
+                  </ReactCrop>
+                </div>
+
+                <div className='flex justify-end gap-2 mt-3'>
+                  <button
+                    type='button'
+                    onClick={() => {
+                      setImageSrc(null);
+                      setCrop(undefined);
+                      setCompletedCrop(null);
+                      setZoom(1);
+                    }}
+                    className='px-3 py-1.5 text-xs rounded-md border text-gray-700 hover:bg-white'
+                  >
+                    Cancel Crop
+                  </button>
+                  <button
+                    type='button'
+                    onClick={applyCrop}
+                    className='px-3 py-1.5 text-xs rounded-md bg-blue-600 text-white hover:bg-blue-700'
+                  >
+                    Apply Crop
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
           <div className='flex gap-3 pt-4'>
             <button
-              onClick={
-                isEditMode ? handleUpdateProduct : handleAddProduct
-              }
+              onClick={isEditMode ? handleUpdateProduct : handleAddProduct}
               disabled={uploading}
               className='flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2'
             >
@@ -228,7 +363,9 @@ const ProductPopup = ({
   );
 };
 
+
 export default function AutomobileApp() {
+  const navigate = useNavigate();
   const [view, setView] = useState('admin');
   const [automobiles, setAutomobiles] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -253,20 +390,68 @@ export default function AutomobileApp() {
 
   // ✅ FIXED: Proper useState for productForm
   const [productForm, setProductForm] = useState({
-    productName: '',
-    brand: '',
-    model: '',
-    year: '',
-    price: '',
-    color: '',
-    fuelType: '',
-    transmission: '',
-    mileage: '',
-  });
-
+  productName: "",
+  brand: "",
+  model: "",
+  year: "",
+  price: "",
+  color: "",
+  fuelType: "",
+  transmission: "",
+  mileage: "",
+  image: "",
+});
+const [imageSrc, setImageSrc] = useState(null);
+  const [crop, setCrop] = useState({ unit: '%', width: 50, aspect: 4 / 3 });
+  const [completedCrop, setCompletedCrop] = useState(null);
+  const [zoom, setZoom] = useState(1);
+  const imgRef = useRef(null);
   useEffect(() => {
     loadDataFromAPI();
   }, [pagination.page, pagination.limit]);
+ // Image selection handler
+  const onSelectFile = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setImageSrc(reader.result);
+        setZoom(1);
+        setCrop({ unit: '%', width: 50, aspect: 4 / 3 });
+        setCompletedCrop(null);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+const applyCrop = async () => {
+    if (!completedCrop || !imgRef.current) return;
+    
+    const canvas = document.createElement('canvas');
+    const scaleX = imgRef.current.naturalWidth / imgRef.current.width;
+    const scaleY = imgRef.current.naturalHeight / imgRef.current.height;
+    
+    canvas.width = completedCrop.width * scaleX;
+    canvas.height = completedCrop.height * scaleY;
+    
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(
+      imgRef.current,
+      completedCrop.x * scaleX,
+      completedCrop.y * scaleY,
+      completedCrop.width * scaleX,
+      completedCrop.height * scaleY,
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+    
+    const base64 = canvas.toDataURL('image/jpeg');
+    setProductForm(prev => ({ ...prev, image: base64 }));
+    setImageSrc(null);
+    setCrop({ unit: '%', width: 50, aspect: 4 / 3 });
+    setCompletedCrop(null);
+    setZoom(1);
+  };
 
   // Load data from backend API with pagination
   const loadDataFromAPI = async () => {
@@ -429,6 +614,7 @@ export default function AutomobileApp() {
       fuelType: '',
       transmission: '',
       mileage: '',
+      image:'',
     });
     setIsEditMode(false);
     setCurrentEditingId(null);
@@ -454,6 +640,7 @@ export default function AutomobileApp() {
       transmission:
         vehicle.transmission || vehicle['Transmission'] || '',
       mileage: vehicle.mileage || vehicle['Mileage'] || '',
+       image: productForm.image || "",
     });
     setIsEditMode(true);
     setCurrentEditingId(vehicle._id);
@@ -481,6 +668,7 @@ export default function AutomobileApp() {
       fuelType: productForm.fuelType,
       transmission: productForm.transmission,
       mileage: parseFloat(productForm.mileage) || 0,
+       image: productForm.image || "",
     };
 
     try {
@@ -518,6 +706,7 @@ export default function AutomobileApp() {
         'Fuel Type': productForm.fuelType,
         Transmission: productForm.transmission,
         Mileage: productForm.mileage,
+        image: productForm.image,
       };
 
       const newData = [...automobiles, newProduct];
@@ -553,6 +742,7 @@ export default function AutomobileApp() {
       fuelType: productForm.fuelType,
       transmission: productForm.transmission,
       mileage: parseFloat(productForm.mileage) || 0,
+       image: productForm.image || "",
     };
 
     try {

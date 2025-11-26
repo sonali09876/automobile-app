@@ -10,6 +10,9 @@ import ImportData from "./Components/User/ImportData";
 import ProductFeatures from "./Components/User/ProductFeatures";
 import Contact from "./Components/User/Contact";
 import VehicleDetails from "./Components/User/VehicleDetails";
+import Signup from "./Components/User/Signup";
+import ProfilePage from "./Components/User/ProfilePage";
+import Footer from "./Components/User/Footer";
 
 // Admin Components
 import Excel from "./Components/Admin/ImportExcel";
@@ -17,6 +20,9 @@ import AdminDashboard from "./Components/Admin/AdminDashboard";
 import AdminLayout from "./Components/Admin/AdminLayout";
 import ProductMaster from "./Components/Admin/ProductMaster";
 import LoginPage from "./Components/Admin/Login";
+
+
+
 
 function App() {
   return (
@@ -37,6 +43,10 @@ function App() {
                 <Route path="/importdata" element={<ImportData />} />
                 <Route path="/productfeatures" element={<ProductFeatures />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/signup" element={<Signup />} />
+                 <Route path="/profilepage" element={<ProfilePage />} />
+                 <Route path="/footer" element={<Footer />} />
+
               </Routes>
             </>
           }

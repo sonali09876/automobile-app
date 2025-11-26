@@ -971,16 +971,15 @@ export default function ImportData() {
 
           {/* Action Buttons */}
           <div className='flex gap-2 pt-3 border-t border-gray-200'>
-        {/* ...existing Edit and Delete buttons... */}
+<button
+  type="button"
+  onClick={() => navigate(`/signup?redirect=/vehicles/${vehicle._id || index}`)}
+  className="flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1 transition-all duration-200"
+>
+  <Eye size={16} />
+  View Details
+</button>
 
-        <button
-          type='button'
-          onClick={() => navigate(`/vehicles/${vehicle._id || index}`)}
-          className='flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1 transition-all duration-200'
-        >
-          <Eye size={16} />
-          View Details
-        </button>
       </div>
     </div>
       </div>

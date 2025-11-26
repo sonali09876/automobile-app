@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Car, Wrench, ShoppingCart, Fuel, Star, ChevronRight, Zap, Shield, Clock } from "lucide-react";
 import ProductFeatures from "../User/ProductFeatures";
+import Footer from "./Footer";
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -184,10 +185,15 @@ export default function Home() {
             >
               View All Products
               <ChevronRight size={20} />
+
             </a>
+           
           </div>
         </div>
+       
       </div>
+       <Footer/>
     </div>
+     
   );
 }
