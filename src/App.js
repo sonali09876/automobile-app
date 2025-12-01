@@ -20,6 +20,8 @@ import AdminDashboard from "./Components/Admin/AdminDashboard";
 import AdminLayout from "./Components/Admin/AdminLayout";
 import ProductMaster from "./Components/Admin/ProductMaster";
 import LoginPage from "./Components/Admin/Login";
+import ContactMaster from "./Components/Admin/ContactMaster";
+import InfoMaster from "./Components/Admin/InfoMaster";
 
 
 
@@ -61,6 +63,8 @@ function App() {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="importexcel" element={<Excel />} />
           <Route path="productmaster" element={<ProductMaster />} />
+          <Route path="contactmaster" element={<ContactMaster />} />
+          <Route path="infomaster" element={<InfoMaster />} />
         </Route>
 
       </Routes>
