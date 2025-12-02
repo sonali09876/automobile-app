@@ -22,8 +22,6 @@ import ProductMaster from "./Components/Admin/ProductMaster";
 import LoginPage from "./Components/Admin/Login";
 
 
-
-
 function App() {
   return (
     <Router>
