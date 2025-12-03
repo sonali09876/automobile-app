@@ -22,7 +22,7 @@ import ProductMaster from "./Components/Admin/ProductMaster";
 import LoginPage from "./Components/Admin/Login";
 import ContactMaster from "./Components/Admin/ContactMaster";
 import InfoMaster from "./Components/Admin/InfoMaster";
-
+import Productpopup from "./Components/Admin/ProductPopup";
 
 function App() {
   return (
@@ -63,6 +63,7 @@ function App() {
           <Route path="productmaster" element={<ProductMaster />} />
           <Route path="contactmaster" element={<ContactMaster />} />
           <Route path="infomaster" element={<InfoMaster />} />
+          <Route path="productpopup" element={<Productpopup />} />
         </Route>
 
       </Routes>

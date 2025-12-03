@@ -27,8 +27,6 @@ import {
   ZoomOut,
   ImageIcon,
 } from 'lucide-react';
-
-// ✅ Move ProductPopup outside the main component to prevent re-renders
 const ProductPopup = ({
   showProductPopup,
   setShowProductPopup,
@@ -288,21 +286,43 @@ const ProductPopup = ({
                 </div>
 
                 <div className='max-h-[300px] overflow-auto bg-black/5 flex items-center justify-center'>
-                  <ReactCrop
-                    crop={crop}
-                    onChange={(c) => setCrop(c)}
-                    onComplete={(c) => setCompletedCrop(c)}
-                    aspect={4 / 3}
-                    keepSelection
-                  >
-                    <img
-                      ref={imgRef}
-                      alt='Crop source'
-                      src={imageSrc}
-                      style={{ transform: `scale(${zoom})` }}
-                      onLoad={onImageLoad}
-                    />
-                  </ReactCrop>
+                <ReactCrop
+  crop={crop}
+  onChange={(pixelCrop, percentCrop) => {
+    setCrop(percentCrop);
+  }}
+  onComplete={(pixelCrop, percentCrop) => {
+    setCompletedCrop(percentCrop);
+  }}
+  
+  aspect={4 / 3}
+  ruleOfThirds={true}
+
+  keepSelection={false}
+  locked={false}
+
+ 
+  minWidth={40}
+  minHeight={40}
+
+  
+  renderSelectionAddon={null}
+>
+  <img
+    ref={imgRef}
+    alt="Crop source"
+    src={imageSrc}
+    style={{
+      transform: `scale(${zoom})`,
+      transformOrigin: "center center",
+      maxHeight: "300px",
+      objectFit: "contain",
+    }}
+    onLoad={onImageLoad}
+  />
+</ReactCrop>
+
+
                 </div>
 
                 <div className='flex justify-end gap-2 mt-3'>
@@ -422,6 +442,10 @@ const [imageSrc, setImageSrc] = useState(null);
       reader.readAsDataURL(e.target.files[0]);
     }
   };
+  const onImageLoad = useCallback((e) => {
+  imgRef.current = e.target;
+}, []);
+
 const applyCrop = async () => {
     if (!completedCrop || !imgRef.current) return;
     
@@ -1181,17 +1205,31 @@ const applyCrop = async () => {
       </div>
 
       {/* ✅ Use the external ProductPopup component */}
-      <ProductPopup
-        showProductPopup={showProductPopup}
-        setShowProductPopup={setShowProductPopup}
-        productForm={productForm}
-        handleProductFormChange={handleProductFormChange}
-        handleAddProduct={handleAddProduct}
-        handleUpdateProduct={handleUpdateProduct}
-        uploading={uploading}
-        isEditMode={isEditMode}
-        currentEditingId={currentEditingId}
-      />
+   <ProductPopup
+  showProductPopup={showProductPopup}
+  setShowProductPopup={setShowProductPopup}
+  productForm={productForm}
+  handleProductFormChange={handleProductFormChange}
+  handleAddProduct={handleAddProduct}
+  handleUpdateProduct={handleUpdateProduct}
+  uploading={uploading}
+  isEditMode={isEditMode}
+  currentEditingId={currentEditingId}
+
+  /*👇 IMAGE + CROP PROPS MUST BE PASSED */
+  onSelectFile={onSelectFile}
+  imageSrc={imageSrc}
+  setImageSrc={setImageSrc}
+  crop={crop}
+  setCrop={setCrop}
+  setCompletedCrop={setCompletedCrop}
+  zoom={zoom}
+  setZoom={setZoom}
+  imgRef={imgRef}
+  onImageLoad={onImageLoad}
+  applyCrop={applyCrop}
+/>
+
     </div>
   );
 }
