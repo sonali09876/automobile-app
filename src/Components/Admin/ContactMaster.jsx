@@ -102,10 +102,6 @@ fetchContacts()
     alert("Failed to delete contact. Please try again.");
   }
 };
-
-
-
-
   // Calculate displayed contacts for current page
   const indexOfLastContact = currentPage * contactsPerPage;
   const indexOfFirstContact = indexOfLastContact - contactsPerPage;

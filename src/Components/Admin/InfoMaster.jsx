@@ -133,7 +133,6 @@ export default function AdminInfoMaster() {
     setError(null);
     setSuccess(false);
     setModalLoading(true);
-
     try {
       if (isEditing && editingId) {
         await httpClient.put(`/info/${editingId}`, formData);
@@ -204,14 +203,12 @@ export default function AdminInfoMaster() {
       setError('Failed to update status.');
     }
   };
-
   const handleCancelEdit = () => {
     setIsEditing(false);
     setEditingId(null);
     setFormData({ email: '', phoneNumber: '', address: '', isActive: true });
     setIsModalOpen(false);
   };
-
   if (loading) {
     return (
       <div className="p-4 sm:p-6 flex items-center justify-center min-h-screen">
@@ -222,22 +219,19 @@ export default function AdminInfoMaster() {
       </div>
     );
   }
-
   return (
     <div className="p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-gray-800 flex items-center gap-2">
           Info Master
         </h1>
-
-        {/* Error & Success Messages */}
+        
         {error && (
           <div className="flex items-start bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 mb-4 sm:mb-6 rounded-r-lg shadow-sm animate-pulse">
             <AlertCircle className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
             <span className="text-sm sm:text-base">{error}</span>
           </div>
         )}
-
         {success && (
           <div className="flex items-start bg-green-50 border-l-4 border-green-500 text-green-700 px-4 py-3 mb-4 sm:mb-6 rounded-r-lg shadow-sm animate-pulse">
             <CheckCircle className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
@@ -247,7 +241,7 @@ export default function AdminInfoMaster() {
           </div>
         )}
 
-        {/* Form Card for adding new info */}
+       
         {!isModalOpen && (
           <div className="bg-white p-4 sm:p-6 rounded-xl shadow-lg mb-6 border border-gray-200">
             <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center gap-2 text-gray-800">
@@ -277,7 +271,8 @@ export default function AdminInfoMaster() {
                     placeholder="9876543210"
                     value={formData.phoneNumber}
                     onChange={handleChange}
-                    className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-sm sm:text-base"
+                    className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                    transition-all text-sm sm:text-base"
                     required
                   />
                 </div>
