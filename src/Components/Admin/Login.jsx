@@ -33,7 +33,6 @@ export default function LoginPage() {
       alert('Please Enter correct Credentials');
     }
   };
-
   return (
     <div className='min-h-screen relative overflow-hidden bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900'>
       {/* Animated Background */}

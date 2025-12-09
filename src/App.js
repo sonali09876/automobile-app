@@ -23,6 +23,7 @@ import LoginPage from "./Components/Admin/Login";
 import ContactMaster from "./Components/Admin/ContactMaster";
 import InfoMaster from "./Components/Admin/InfoMaster";
 import Productpopup from "./Components/Admin/ProductPopup";
+import UserLogin from "./Components/User/UserLogin";
 
 function App() {
   return (
@@ -46,6 +47,8 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                  <Route path="/profilepage" element={<ProfilePage />} />
                  <Route path="/footer" element={<Footer />} />
+                   <Route path="/userlogin" element={<UserLogin />} />
+
 
               </Routes>
             </>

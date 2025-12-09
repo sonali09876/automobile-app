@@ -45,6 +45,9 @@ export default function Navbar() {
             <Link to='/contact' onClick={handleClick}>Contact</Link>
             <span className='absolute inset-x-0 bottom-0 h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left'></span>
           </li>
+           <Link className={`${buttonClasses} bg-white text-blue-800 text-center hover:bg-gray-100`} to='/userlogin'>
+              Login
+            </Link>
 
           {/* Profile Dropdown */}
           <li className='relative flex items-center gap-3'>
@@ -109,9 +112,7 @@ export default function Navbar() {
           </li>
 
           <li className='pt-2 flex flex-col gap-3'>
-            <Link className={`${buttonClasses} bg-white text-blue-800 text-center hover:bg-gray-100`} to='/login'>
-              Login
-            </Link>
+           
 
             <Link className={`${buttonClasses} bg-blue-600 text-white text-center hover:bg-blue-500`} to='/profilepage'>
               Profile
